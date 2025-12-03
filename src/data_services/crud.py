@@ -164,7 +164,9 @@ class Crud[Entity: DeclarativeBase, CreateModel: BaseModel, UpdateModel: BaseMod
             logger.error(f"{error_msg}, {str(e)}")
             raise CrudException(error_msg) from e
 
-    async def _update(self, entity_id: UUID, update_model: UpdateModel, user_id: str, *args: Any, **kwargs: Any) -> Entity:
+    async def _update(
+        self, entity_id: UUID, update_model: UpdateModel, user_id: str, *args: Any, **kwargs: Any
+    ) -> Entity:
         stmt = (
             update(self.entity_type)
             .where(self.entity_type.id == entity_id)  # type: ignore[attr-defined]

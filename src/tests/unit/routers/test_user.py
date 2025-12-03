@@ -1,6 +1,7 @@
-from uuid import UUID
 from unittest.mock import AsyncMock
+from uuid import UUID
 
+from httpx import AsyncClient
 import pytest
 from pytest_mock import MockerFixture
 from result import Err, Ok
@@ -11,7 +12,6 @@ from starlette.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
 )
-from httpx import AsyncClient
 
 from src.constants import USER_PREFIX, VERSION_PREFIX
 from src.models.base import ModelList

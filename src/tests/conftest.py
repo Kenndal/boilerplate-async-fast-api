@@ -2,11 +2,11 @@ from datetime import datetime
 from typing import Any, AsyncGenerator, cast
 from uuid import uuid4
 
+from httpx import ASGITransport, AsyncClient
 import pytest
 import pytest_asyncio
 from pytest_mock import MockerFixture
 from sqlalchemy.ext.asyncio import AsyncSession
-from httpx import AsyncClient, ASGITransport
 
 from src.api_server.main import app
 from src.data_services.user_data_service import UserDataService
