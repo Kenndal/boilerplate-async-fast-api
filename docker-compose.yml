@@ -1,0 +1,43 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15
+    container_name: async_fastapi_postgres
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: db_master_admin
+      POSTGRES_PASSWORD: db_master_admin_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/database/scripts/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U db_master_admin -d app_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: async_fastapi_app
+    ports:
+      - "5001:5001"
+    environment:
+      DATABASE_HOSTNAME: db
+      DATABASE_USERNAME: db_master_admin
+      DATABASE_PASSWORD: db_master_admin_password
+      DATABASE_NAME: app_db
+      DATABASE_PORT: 5432
+      IS_PROD: false
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    # TODO: Add health check for FastAPI app
+
+volumes:
+  postgres_data:
