@@ -53,9 +53,9 @@ make db_upgrade
 
 4. **Access the API**
 
-- API: http://localhost:5000
-- Interactive docs: http://localhost:5000/ (Swagger UI)
-- OpenAPI schema: http://localhost:5000/v1/swagger.json
+- API: http://localhost:5001
+- Interactive docs: http://localhost:5001/ (Swagger UI)
+- OpenAPI schema: http://localhost:5001/v1/swagger.json
 
 ## Project Structure
 
